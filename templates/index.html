@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Görev Yöneticisi</title>
+</head>
+
+<body>
+    <form action="/ekle" method="POST">
+        <h1>Görevler</h1>
+        <label for="baslik">Başlık: </label>
+        <input type="text" id="baslik" name="baslik" required><br><br>
+
+        <label for="aciklama">Açıklama: </label>
+        <input type="text" id="aciklama" name="aciklama" required><br><br>
+
+        <label for="oncelik">Öncelik: </label>
+        <select id="oncelik" name="oncelik" required>
+            <option value="düşük">Düşük</option>
+            <option value="orta">Orta</option>
+            <option value="yüksek">Yüksek</option>
+        </select><br><br>
+
+        <button type="submit">Kaydet</button>
+    </form>
+
+
+
+    <hr>
+
+    <form method="GET" action="/">
+        <select name="oncelik">
+            <option value="">Tümü</option>
+            <option value="düşük">Düşük</option>
+            <option value="orta">Orta</option>
+            <option value="yüksek">Yüksek</option>
+        </select>
+
+        <button type="submit">Filtrele</button>
+    </form>
+
+    <table border="1">
+
+        <tr>
+            <th>ID</th>
+            <th>Başlık</th>
+            <th>Açıklama</th>
+            <th>Öncelik</th>
+            <th>Durum</th>
+        </tr>
+
+        {% for g in gorevler %}
+        <tr>
+            <td>{{ g[0] }} </td>
+            <td>{{ g[1] }} </td>
+            <td>{{ g[2] }} </td>
+            <td>{{ g[3] }} </td>
+            <td>
+                {% if g[4] == 0 %}
+                Tamamlanmadı
+                {% else %}
+                Tamamlandı
+                {% endif %}
+            </td>
+            <td><a href="/degistir/{{ g[0] }}">Durumu Değiştir</a></td>
+            <td><a href="/sil/{{ g[0] }}">Görevi Sil</a></td>
+
+        </tr>
+        {% endfor %}
+
+    </table>
+
+
+</body>
+
+</html>
